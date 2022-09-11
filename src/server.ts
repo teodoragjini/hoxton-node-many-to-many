@@ -12,18 +12,18 @@ const port = 5678;
 const getAplicantById = db.prepare(`SELECT * FROM aplicants WHERE id = @id;`);
 
 const getInterviewerById = db.prepare(
-  `SELECT * FROM interviewers WHERE id = ?;`
+  `SELECT * FROM interviewers WHERE id = @id;`
 );
 
 const getInterviewsForAplicant = db.prepare(`
-SELECT aplicants.* FROM aplicants
-JOIN interviews ON aplicants.id = interviews.aplicantId
+SELECT interviews.* FROM interviews
+JOIN aplicants ON aplicants.id = interviews.aplicantId
 WHERE interviews.aplicantId = @aplicantId;
 `);
 
 const getInterviewsForInterviewer = db.prepare(`
-SELECT interviewers.* FROM interviewers
-JOIN interviews ON interviewers.id = interviews.interviewerId
+SELECT interviews.* FROM interviews
+JOIN interviewers ON interviewers.id = interviews.interviewerId
 WHERE interviews.interviewerId = @interviewerId;
 `);
 
